@@ -46,10 +46,10 @@ export default function Header() {
           {!isLoading && isAuthenticated && (
             <>
               <Link
-                to="/app"
+                to="/projects"
                 className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
               >
-                App
+                Projects
               </Link>
               <button
                 onClick={handleSignOut}
@@ -98,7 +98,7 @@ export default function Header() {
 
         <nav className="flex-1 p-4 overflow-y-auto">
           <Link
-            to="/"
+            to="/projects"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
             activeProps={{
@@ -107,7 +107,7 @@ export default function Header() {
             }}
           >
             <Home size={20} />
-            <span className="font-medium">Home</span>
+            <span className="font-medium">Projects</span>
           </Link>
         </nav>
       </aside>

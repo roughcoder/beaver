@@ -15,6 +15,21 @@ import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthedSignUpRouteImport } from './routes/_authed/sign-up'
 import { Route as AuthedSignInRouteImport } from './routes/_authed/sign-in'
 import { Route as AuthedPasswordResetRouteImport } from './routes/_authed/password-reset'
+import { Route as AppAppRouteImport } from './routes/_app/app'
+import { Route as AppProjectsRouteRouteImport } from './routes/_app/projects/route'
+import { Route as AppProjectRouteRouteImport } from './routes/_app/project/route'
+import { Route as AppProjectsIndexRouteImport } from './routes/_app/projects/index'
+import { Route as AppProjectsNewRouteImport } from './routes/_app/projects/new'
+import { Route as AppProjectProjectIdRouteRouteImport } from './routes/_app/project/$projectId/route'
+import { Route as AppProjectProjectIdIndexRouteImport } from './routes/_app/project/$projectId/index'
+import { Route as AppProjectProjectIdKeywordsRouteImport } from './routes/_app/project/$projectId/keywords'
+import { Route as AppProjectProjectIdContentRouteImport } from './routes/_app/project/$projectId/content'
+import { Route as AppProjectProjectIdAssistantRouteImport } from './routes/_app/project/$projectId/assistant'
+import { Route as AppProjectProjectIdSettingsRouteRouteImport } from './routes/_app/project/$projectId/settings/route'
+import { Route as AppProjectProjectIdSettingsIndexRouteImport } from './routes/_app/project/$projectId/settings/index'
+import { Route as AppProjectProjectIdSettingsTeamRouteImport } from './routes/_app/project/$projectId/settings/team'
+import { Route as AppProjectProjectIdSettingsDangerZoneRouteImport } from './routes/_app/project/$projectId/settings/danger-zone'
+import { Route as AppProjectProjectIdSettingsApiKeysRouteImport } from './routes/_app/project/$projectId/settings/api-keys'
 
 const AuthedRouteRoute = AuthedRouteRouteImport.update({
   id: '/_authed',
@@ -44,41 +59,218 @@ const AuthedPasswordResetRoute = AuthedPasswordResetRouteImport.update({
   path: '/password-reset',
   getParentRoute: () => AuthedRouteRoute,
 } as any)
+const AppAppRoute = AppAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProjectsRouteRoute = AppProjectsRouteRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProjectRouteRoute = AppProjectRouteRouteImport.update({
+  id: '/project',
+  path: '/project',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProjectsIndexRoute = AppProjectsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppProjectsRouteRoute,
+} as any)
+const AppProjectsNewRoute = AppProjectsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AppProjectsRouteRoute,
+} as any)
+const AppProjectProjectIdRouteRoute =
+  AppProjectProjectIdRouteRouteImport.update({
+    id: '/$projectId',
+    path: '/$projectId',
+    getParentRoute: () => AppProjectRouteRoute,
+  } as any)
+const AppProjectProjectIdIndexRoute =
+  AppProjectProjectIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsRoute =
+  AppProjectProjectIdKeywordsRouteImport.update({
+    id: '/keywords',
+    path: '/keywords',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
+const AppProjectProjectIdContentRoute =
+  AppProjectProjectIdContentRouteImport.update({
+    id: '/content',
+    path: '/content',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
+const AppProjectProjectIdAssistantRoute =
+  AppProjectProjectIdAssistantRouteImport.update({
+    id: '/assistant',
+    path: '/assistant',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
+const AppProjectProjectIdSettingsRouteRoute =
+  AppProjectProjectIdSettingsRouteRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
+const AppProjectProjectIdSettingsIndexRoute =
+  AppProjectProjectIdSettingsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
+  } as any)
+const AppProjectProjectIdSettingsTeamRoute =
+  AppProjectProjectIdSettingsTeamRouteImport.update({
+    id: '/team',
+    path: '/team',
+    getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
+  } as any)
+const AppProjectProjectIdSettingsDangerZoneRoute =
+  AppProjectProjectIdSettingsDangerZoneRouteImport.update({
+    id: '/danger-zone',
+    path: '/danger-zone',
+    getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
+  } as any)
+const AppProjectProjectIdSettingsApiKeysRoute =
+  AppProjectProjectIdSettingsApiKeysRouteImport.update({
+    id: '/api-keys',
+    path: '/api-keys',
+    getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
+  '/project': typeof AppProjectRouteRouteWithChildren
+  '/projects': typeof AppProjectsRouteRouteWithChildren
+  '/app': typeof AppAppRoute
   '/password-reset': typeof AuthedPasswordResetRoute
   '/sign-in': typeof AuthedSignInRoute
   '/sign-up': typeof AuthedSignUpRoute
   '/': typeof AppIndexRoute
+  '/project/$projectId': typeof AppProjectProjectIdRouteRouteWithChildren
+  '/projects/new': typeof AppProjectsNewRoute
+  '/projects/': typeof AppProjectsIndexRoute
+  '/project/$projectId/settings': typeof AppProjectProjectIdSettingsRouteRouteWithChildren
+  '/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
+  '/project/$projectId/content': typeof AppProjectProjectIdContentRoute
+  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
+  '/project/$projectId/': typeof AppProjectProjectIdIndexRoute
+  '/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
+  '/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
+  '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/project': typeof AppProjectRouteRouteWithChildren
+  '/app': typeof AppAppRoute
   '/password-reset': typeof AuthedPasswordResetRoute
   '/sign-in': typeof AuthedSignInRoute
   '/sign-up': typeof AuthedSignUpRoute
   '/': typeof AppIndexRoute
+  '/projects/new': typeof AppProjectsNewRoute
+  '/projects': typeof AppProjectsIndexRoute
+  '/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
+  '/project/$projectId/content': typeof AppProjectProjectIdContentRoute
+  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
+  '/project/$projectId': typeof AppProjectProjectIdIndexRoute
+  '/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
+  '/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
+  '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/project/$projectId/settings': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
   '/_authed': typeof AuthedRouteRouteWithChildren
+  '/_app/project': typeof AppProjectRouteRouteWithChildren
+  '/_app/projects': typeof AppProjectsRouteRouteWithChildren
+  '/_app/app': typeof AppAppRoute
   '/_authed/password-reset': typeof AuthedPasswordResetRoute
   '/_authed/sign-in': typeof AuthedSignInRoute
   '/_authed/sign-up': typeof AuthedSignUpRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/project/$projectId': typeof AppProjectProjectIdRouteRouteWithChildren
+  '/_app/projects/new': typeof AppProjectsNewRoute
+  '/_app/projects/': typeof AppProjectsIndexRoute
+  '/_app/project/$projectId/settings': typeof AppProjectProjectIdSettingsRouteRouteWithChildren
+  '/_app/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
+  '/_app/project/$projectId/content': typeof AppProjectProjectIdContentRoute
+  '/_app/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
+  '/_app/project/$projectId/': typeof AppProjectProjectIdIndexRoute
+  '/_app/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
+  '/_app/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
+  '/_app/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/_app/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/password-reset' | '/sign-in' | '/sign-up' | '/'
+  fullPaths:
+    | '/project'
+    | '/projects'
+    | '/app'
+    | '/password-reset'
+    | '/sign-in'
+    | '/sign-up'
+    | '/'
+    | '/project/$projectId'
+    | '/projects/new'
+    | '/projects/'
+    | '/project/$projectId/settings'
+    | '/project/$projectId/assistant'
+    | '/project/$projectId/content'
+    | '/project/$projectId/keywords'
+    | '/project/$projectId/'
+    | '/project/$projectId/settings/api-keys'
+    | '/project/$projectId/settings/danger-zone'
+    | '/project/$projectId/settings/team'
+    | '/project/$projectId/settings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/password-reset' | '/sign-in' | '/sign-up' | '/'
+  to:
+    | '/project'
+    | '/app'
+    | '/password-reset'
+    | '/sign-in'
+    | '/sign-up'
+    | '/'
+    | '/projects/new'
+    | '/projects'
+    | '/project/$projectId/assistant'
+    | '/project/$projectId/content'
+    | '/project/$projectId/keywords'
+    | '/project/$projectId'
+    | '/project/$projectId/settings/api-keys'
+    | '/project/$projectId/settings/danger-zone'
+    | '/project/$projectId/settings/team'
+    | '/project/$projectId/settings'
   id:
     | '__root__'
     | '/_app'
     | '/_authed'
+    | '/_app/project'
+    | '/_app/projects'
+    | '/_app/app'
     | '/_authed/password-reset'
     | '/_authed/sign-in'
     | '/_authed/sign-up'
     | '/_app/'
+    | '/_app/project/$projectId'
+    | '/_app/projects/new'
+    | '/_app/projects/'
+    | '/_app/project/$projectId/settings'
+    | '/_app/project/$projectId/assistant'
+    | '/_app/project/$projectId/content'
+    | '/_app/project/$projectId/keywords'
+    | '/_app/project/$projectId/'
+    | '/_app/project/$projectId/settings/api-keys'
+    | '/_app/project/$projectId/settings/danger-zone'
+    | '/_app/project/$projectId/settings/team'
+    | '/_app/project/$projectId/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,14 +322,196 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedPasswordResetRouteImport
       parentRoute: typeof AuthedRouteRoute
     }
+    '/_app/app': {
+      id: '/_app/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppAppRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/projects': {
+      id: '/_app/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AppProjectsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/project': {
+      id: '/_app/project'
+      path: '/project'
+      fullPath: '/project'
+      preLoaderRoute: typeof AppProjectRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/projects/': {
+      id: '/_app/projects/'
+      path: '/'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof AppProjectsIndexRouteImport
+      parentRoute: typeof AppProjectsRouteRoute
+    }
+    '/_app/projects/new': {
+      id: '/_app/projects/new'
+      path: '/new'
+      fullPath: '/projects/new'
+      preLoaderRoute: typeof AppProjectsNewRouteImport
+      parentRoute: typeof AppProjectsRouteRoute
+    }
+    '/_app/project/$projectId': {
+      id: '/_app/project/$projectId'
+      path: '/$projectId'
+      fullPath: '/project/$projectId'
+      preLoaderRoute: typeof AppProjectProjectIdRouteRouteImport
+      parentRoute: typeof AppProjectRouteRoute
+    }
+    '/_app/project/$projectId/': {
+      id: '/_app/project/$projectId/'
+      path: '/'
+      fullPath: '/project/$projectId/'
+      preLoaderRoute: typeof AppProjectProjectIdIndexRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
+    '/_app/project/$projectId/keywords': {
+      id: '/_app/project/$projectId/keywords'
+      path: '/keywords'
+      fullPath: '/project/$projectId/keywords'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
+    '/_app/project/$projectId/content': {
+      id: '/_app/project/$projectId/content'
+      path: '/content'
+      fullPath: '/project/$projectId/content'
+      preLoaderRoute: typeof AppProjectProjectIdContentRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
+    '/_app/project/$projectId/assistant': {
+      id: '/_app/project/$projectId/assistant'
+      path: '/assistant'
+      fullPath: '/project/$projectId/assistant'
+      preLoaderRoute: typeof AppProjectProjectIdAssistantRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
+    '/_app/project/$projectId/settings': {
+      id: '/_app/project/$projectId/settings'
+      path: '/settings'
+      fullPath: '/project/$projectId/settings'
+      preLoaderRoute: typeof AppProjectProjectIdSettingsRouteRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
+    '/_app/project/$projectId/settings/': {
+      id: '/_app/project/$projectId/settings/'
+      path: '/'
+      fullPath: '/project/$projectId/settings/'
+      preLoaderRoute: typeof AppProjectProjectIdSettingsIndexRouteImport
+      parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
+    }
+    '/_app/project/$projectId/settings/team': {
+      id: '/_app/project/$projectId/settings/team'
+      path: '/team'
+      fullPath: '/project/$projectId/settings/team'
+      preLoaderRoute: typeof AppProjectProjectIdSettingsTeamRouteImport
+      parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
+    }
+    '/_app/project/$projectId/settings/danger-zone': {
+      id: '/_app/project/$projectId/settings/danger-zone'
+      path: '/danger-zone'
+      fullPath: '/project/$projectId/settings/danger-zone'
+      preLoaderRoute: typeof AppProjectProjectIdSettingsDangerZoneRouteImport
+      parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
+    }
+    '/_app/project/$projectId/settings/api-keys': {
+      id: '/_app/project/$projectId/settings/api-keys'
+      path: '/api-keys'
+      fullPath: '/project/$projectId/settings/api-keys'
+      preLoaderRoute: typeof AppProjectProjectIdSettingsApiKeysRouteImport
+      parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
+    }
   }
 }
 
+interface AppProjectProjectIdSettingsRouteRouteChildren {
+  AppProjectProjectIdSettingsApiKeysRoute: typeof AppProjectProjectIdSettingsApiKeysRoute
+  AppProjectProjectIdSettingsDangerZoneRoute: typeof AppProjectProjectIdSettingsDangerZoneRoute
+  AppProjectProjectIdSettingsTeamRoute: typeof AppProjectProjectIdSettingsTeamRoute
+  AppProjectProjectIdSettingsIndexRoute: typeof AppProjectProjectIdSettingsIndexRoute
+}
+
+const AppProjectProjectIdSettingsRouteRouteChildren: AppProjectProjectIdSettingsRouteRouteChildren =
+  {
+    AppProjectProjectIdSettingsApiKeysRoute:
+      AppProjectProjectIdSettingsApiKeysRoute,
+    AppProjectProjectIdSettingsDangerZoneRoute:
+      AppProjectProjectIdSettingsDangerZoneRoute,
+    AppProjectProjectIdSettingsTeamRoute: AppProjectProjectIdSettingsTeamRoute,
+    AppProjectProjectIdSettingsIndexRoute:
+      AppProjectProjectIdSettingsIndexRoute,
+  }
+
+const AppProjectProjectIdSettingsRouteRouteWithChildren =
+  AppProjectProjectIdSettingsRouteRoute._addFileChildren(
+    AppProjectProjectIdSettingsRouteRouteChildren,
+  )
+
+interface AppProjectProjectIdRouteRouteChildren {
+  AppProjectProjectIdSettingsRouteRoute: typeof AppProjectProjectIdSettingsRouteRouteWithChildren
+  AppProjectProjectIdAssistantRoute: typeof AppProjectProjectIdAssistantRoute
+  AppProjectProjectIdContentRoute: typeof AppProjectProjectIdContentRoute
+  AppProjectProjectIdKeywordsRoute: typeof AppProjectProjectIdKeywordsRoute
+  AppProjectProjectIdIndexRoute: typeof AppProjectProjectIdIndexRoute
+}
+
+const AppProjectProjectIdRouteRouteChildren: AppProjectProjectIdRouteRouteChildren =
+  {
+    AppProjectProjectIdSettingsRouteRoute:
+      AppProjectProjectIdSettingsRouteRouteWithChildren,
+    AppProjectProjectIdAssistantRoute: AppProjectProjectIdAssistantRoute,
+    AppProjectProjectIdContentRoute: AppProjectProjectIdContentRoute,
+    AppProjectProjectIdKeywordsRoute: AppProjectProjectIdKeywordsRoute,
+    AppProjectProjectIdIndexRoute: AppProjectProjectIdIndexRoute,
+  }
+
+const AppProjectProjectIdRouteRouteWithChildren =
+  AppProjectProjectIdRouteRoute._addFileChildren(
+    AppProjectProjectIdRouteRouteChildren,
+  )
+
+interface AppProjectRouteRouteChildren {
+  AppProjectProjectIdRouteRoute: typeof AppProjectProjectIdRouteRouteWithChildren
+}
+
+const AppProjectRouteRouteChildren: AppProjectRouteRouteChildren = {
+  AppProjectProjectIdRouteRoute: AppProjectProjectIdRouteRouteWithChildren,
+}
+
+const AppProjectRouteRouteWithChildren = AppProjectRouteRoute._addFileChildren(
+  AppProjectRouteRouteChildren,
+)
+
+interface AppProjectsRouteRouteChildren {
+  AppProjectsNewRoute: typeof AppProjectsNewRoute
+  AppProjectsIndexRoute: typeof AppProjectsIndexRoute
+}
+
+const AppProjectsRouteRouteChildren: AppProjectsRouteRouteChildren = {
+  AppProjectsNewRoute: AppProjectsNewRoute,
+  AppProjectsIndexRoute: AppProjectsIndexRoute,
+}
+
+const AppProjectsRouteRouteWithChildren =
+  AppProjectsRouteRoute._addFileChildren(AppProjectsRouteRouteChildren)
+
 interface AppRouteRouteChildren {
+  AppProjectRouteRoute: typeof AppProjectRouteRouteWithChildren
+  AppProjectsRouteRoute: typeof AppProjectsRouteRouteWithChildren
+  AppAppRoute: typeof AppAppRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppProjectRouteRoute: AppProjectRouteRouteWithChildren,
+  AppProjectsRouteRoute: AppProjectsRouteRouteWithChildren,
+  AppAppRoute: AppAppRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

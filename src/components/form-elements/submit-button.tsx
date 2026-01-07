@@ -21,7 +21,6 @@ export function SubmitButton({
 					disabled={
 						disabledProp || !canSubmit || isSubmitting
 					}
-					className="w-full"
 				>
 					{isSubmitting ? (loadingLabel ?? label) : label}
 				</Button>
