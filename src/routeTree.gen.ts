@@ -31,6 +31,12 @@ import { Route as AppProjectProjectIdKeywordsIndexRouteImport } from './routes/_
 import { Route as AppProjectProjectIdSettingsTeamRouteImport } from './routes/_app/project/$projectId/settings/team'
 import { Route as AppProjectProjectIdSettingsDangerZoneRouteImport } from './routes/_app/project/$projectId/settings/danger-zone'
 import { Route as AppProjectProjectIdSettingsApiKeysRouteImport } from './routes/_app/project/$projectId/settings/api-keys'
+import { Route as AppProjectProjectIdKeywordsResearchRouteRouteImport } from './routes/_app/project/$projectId/keywords/research/route'
+import { Route as AppProjectProjectIdKeywordsResearchIndexRouteImport } from './routes/_app/project/$projectId/keywords/research/index'
+import { Route as AppProjectProjectIdKeywordsResearchStep3RouteImport } from './routes/_app/project/$projectId/keywords/research/step-3'
+import { Route as AppProjectProjectIdKeywordsResearchStep2RouteImport } from './routes/_app/project/$projectId/keywords/research/step-2'
+import { Route as AppProjectProjectIdKeywordsResearchStep1RouteImport } from './routes/_app/project/$projectId/keywords/research/step-1'
+import { Route as AppProjectProjectIdKeywordsResearchAddRouteImport } from './routes/_app/project/$projectId/keywords/research/add'
 
 const AuthedRouteRoute = AuthedRouteRouteImport.update({
   id: '/_authed',
@@ -151,6 +157,42 @@ const AppProjectProjectIdSettingsApiKeysRoute =
     path: '/api-keys',
     getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
   } as any)
+const AppProjectProjectIdKeywordsResearchRouteRoute =
+  AppProjectProjectIdKeywordsResearchRouteRouteImport.update({
+    id: '/research',
+    path: '/research',
+    getParentRoute: () => AppProjectProjectIdKeywordsRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsResearchIndexRoute =
+  AppProjectProjectIdKeywordsResearchIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppProjectProjectIdKeywordsResearchRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsResearchStep3Route =
+  AppProjectProjectIdKeywordsResearchStep3RouteImport.update({
+    id: '/step-3',
+    path: '/step-3',
+    getParentRoute: () => AppProjectProjectIdKeywordsResearchRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsResearchStep2Route =
+  AppProjectProjectIdKeywordsResearchStep2RouteImport.update({
+    id: '/step-2',
+    path: '/step-2',
+    getParentRoute: () => AppProjectProjectIdKeywordsResearchRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsResearchStep1Route =
+  AppProjectProjectIdKeywordsResearchStep1RouteImport.update({
+    id: '/step-1',
+    path: '/step-1',
+    getParentRoute: () => AppProjectProjectIdKeywordsResearchRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsResearchAddRoute =
+  AppProjectProjectIdKeywordsResearchAddRouteImport.update({
+    id: '/add',
+    path: '/add',
+    getParentRoute: () => AppProjectProjectIdKeywordsResearchRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/project': typeof AppProjectRouteRouteWithChildren
@@ -168,11 +210,17 @@ export interface FileRoutesByFullPath {
   '/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
   '/project/$projectId/content': typeof AppProjectProjectIdContentRoute
   '/project/$projectId/': typeof AppProjectProjectIdIndexRoute
+  '/project/$projectId/keywords/research': typeof AppProjectProjectIdKeywordsResearchRouteRouteWithChildren
   '/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
   '/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
   '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
   '/project/$projectId/keywords/': typeof AppProjectProjectIdKeywordsIndexRoute
   '/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
+  '/project/$projectId/keywords/research/add': typeof AppProjectProjectIdKeywordsResearchAddRoute
+  '/project/$projectId/keywords/research/step-1': typeof AppProjectProjectIdKeywordsResearchStep1Route
+  '/project/$projectId/keywords/research/step-2': typeof AppProjectProjectIdKeywordsResearchStep2Route
+  '/project/$projectId/keywords/research/step-3': typeof AppProjectProjectIdKeywordsResearchStep3Route
+  '/project/$projectId/keywords/research/': typeof AppProjectProjectIdKeywordsResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/project': typeof AppProjectRouteRouteWithChildren
@@ -191,6 +239,11 @@ export interface FileRoutesByTo {
   '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
   '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsIndexRoute
   '/project/$projectId/settings': typeof AppProjectProjectIdSettingsIndexRoute
+  '/project/$projectId/keywords/research/add': typeof AppProjectProjectIdKeywordsResearchAddRoute
+  '/project/$projectId/keywords/research/step-1': typeof AppProjectProjectIdKeywordsResearchStep1Route
+  '/project/$projectId/keywords/research/step-2': typeof AppProjectProjectIdKeywordsResearchStep2Route
+  '/project/$projectId/keywords/research/step-3': typeof AppProjectProjectIdKeywordsResearchStep3Route
+  '/project/$projectId/keywords/research': typeof AppProjectProjectIdKeywordsResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,11 +264,17 @@ export interface FileRoutesById {
   '/_app/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
   '/_app/project/$projectId/content': typeof AppProjectProjectIdContentRoute
   '/_app/project/$projectId/': typeof AppProjectProjectIdIndexRoute
+  '/_app/project/$projectId/keywords/research': typeof AppProjectProjectIdKeywordsResearchRouteRouteWithChildren
   '/_app/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
   '/_app/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
   '/_app/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
   '/_app/project/$projectId/keywords/': typeof AppProjectProjectIdKeywordsIndexRoute
   '/_app/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
+  '/_app/project/$projectId/keywords/research/add': typeof AppProjectProjectIdKeywordsResearchAddRoute
+  '/_app/project/$projectId/keywords/research/step-1': typeof AppProjectProjectIdKeywordsResearchStep1Route
+  '/_app/project/$projectId/keywords/research/step-2': typeof AppProjectProjectIdKeywordsResearchStep2Route
+  '/_app/project/$projectId/keywords/research/step-3': typeof AppProjectProjectIdKeywordsResearchStep3Route
+  '/_app/project/$projectId/keywords/research/': typeof AppProjectProjectIdKeywordsResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -235,11 +294,17 @@ export interface FileRouteTypes {
     | '/project/$projectId/assistant'
     | '/project/$projectId/content'
     | '/project/$projectId/'
+    | '/project/$projectId/keywords/research'
     | '/project/$projectId/settings/api-keys'
     | '/project/$projectId/settings/danger-zone'
     | '/project/$projectId/settings/team'
     | '/project/$projectId/keywords/'
     | '/project/$projectId/settings/'
+    | '/project/$projectId/keywords/research/add'
+    | '/project/$projectId/keywords/research/step-1'
+    | '/project/$projectId/keywords/research/step-2'
+    | '/project/$projectId/keywords/research/step-3'
+    | '/project/$projectId/keywords/research/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/project'
@@ -258,6 +323,11 @@ export interface FileRouteTypes {
     | '/project/$projectId/settings/team'
     | '/project/$projectId/keywords'
     | '/project/$projectId/settings'
+    | '/project/$projectId/keywords/research/add'
+    | '/project/$projectId/keywords/research/step-1'
+    | '/project/$projectId/keywords/research/step-2'
+    | '/project/$projectId/keywords/research/step-3'
+    | '/project/$projectId/keywords/research'
   id:
     | '__root__'
     | '/_app'
@@ -277,11 +347,17 @@ export interface FileRouteTypes {
     | '/_app/project/$projectId/assistant'
     | '/_app/project/$projectId/content'
     | '/_app/project/$projectId/'
+    | '/_app/project/$projectId/keywords/research'
     | '/_app/project/$projectId/settings/api-keys'
     | '/_app/project/$projectId/settings/danger-zone'
     | '/_app/project/$projectId/settings/team'
     | '/_app/project/$projectId/keywords/'
     | '/_app/project/$projectId/settings/'
+    | '/_app/project/$projectId/keywords/research/add'
+    | '/_app/project/$projectId/keywords/research/step-1'
+    | '/_app/project/$projectId/keywords/research/step-2'
+    | '/_app/project/$projectId/keywords/research/step-3'
+    | '/_app/project/$projectId/keywords/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -445,15 +521,87 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProjectProjectIdSettingsApiKeysRouteImport
       parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
     }
+    '/_app/project/$projectId/keywords/research': {
+      id: '/_app/project/$projectId/keywords/research'
+      path: '/research'
+      fullPath: '/project/$projectId/keywords/research'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchRouteRouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsRouteRoute
+    }
+    '/_app/project/$projectId/keywords/research/': {
+      id: '/_app/project/$projectId/keywords/research/'
+      path: '/'
+      fullPath: '/project/$projectId/keywords/research/'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchIndexRouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsResearchRouteRoute
+    }
+    '/_app/project/$projectId/keywords/research/step-3': {
+      id: '/_app/project/$projectId/keywords/research/step-3'
+      path: '/step-3'
+      fullPath: '/project/$projectId/keywords/research/step-3'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchStep3RouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsResearchRouteRoute
+    }
+    '/_app/project/$projectId/keywords/research/step-2': {
+      id: '/_app/project/$projectId/keywords/research/step-2'
+      path: '/step-2'
+      fullPath: '/project/$projectId/keywords/research/step-2'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchStep2RouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsResearchRouteRoute
+    }
+    '/_app/project/$projectId/keywords/research/step-1': {
+      id: '/_app/project/$projectId/keywords/research/step-1'
+      path: '/step-1'
+      fullPath: '/project/$projectId/keywords/research/step-1'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchStep1RouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsResearchRouteRoute
+    }
+    '/_app/project/$projectId/keywords/research/add': {
+      id: '/_app/project/$projectId/keywords/research/add'
+      path: '/add'
+      fullPath: '/project/$projectId/keywords/research/add'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsResearchAddRouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsResearchRouteRoute
+    }
   }
 }
 
+interface AppProjectProjectIdKeywordsResearchRouteRouteChildren {
+  AppProjectProjectIdKeywordsResearchAddRoute: typeof AppProjectProjectIdKeywordsResearchAddRoute
+  AppProjectProjectIdKeywordsResearchStep1Route: typeof AppProjectProjectIdKeywordsResearchStep1Route
+  AppProjectProjectIdKeywordsResearchStep2Route: typeof AppProjectProjectIdKeywordsResearchStep2Route
+  AppProjectProjectIdKeywordsResearchStep3Route: typeof AppProjectProjectIdKeywordsResearchStep3Route
+  AppProjectProjectIdKeywordsResearchIndexRoute: typeof AppProjectProjectIdKeywordsResearchIndexRoute
+}
+
+const AppProjectProjectIdKeywordsResearchRouteRouteChildren: AppProjectProjectIdKeywordsResearchRouteRouteChildren =
+  {
+    AppProjectProjectIdKeywordsResearchAddRoute:
+      AppProjectProjectIdKeywordsResearchAddRoute,
+    AppProjectProjectIdKeywordsResearchStep1Route:
+      AppProjectProjectIdKeywordsResearchStep1Route,
+    AppProjectProjectIdKeywordsResearchStep2Route:
+      AppProjectProjectIdKeywordsResearchStep2Route,
+    AppProjectProjectIdKeywordsResearchStep3Route:
+      AppProjectProjectIdKeywordsResearchStep3Route,
+    AppProjectProjectIdKeywordsResearchIndexRoute:
+      AppProjectProjectIdKeywordsResearchIndexRoute,
+  }
+
+const AppProjectProjectIdKeywordsResearchRouteRouteWithChildren =
+  AppProjectProjectIdKeywordsResearchRouteRoute._addFileChildren(
+    AppProjectProjectIdKeywordsResearchRouteRouteChildren,
+  )
+
 interface AppProjectProjectIdKeywordsRouteRouteChildren {
+  AppProjectProjectIdKeywordsResearchRouteRoute: typeof AppProjectProjectIdKeywordsResearchRouteRouteWithChildren
   AppProjectProjectIdKeywordsIndexRoute: typeof AppProjectProjectIdKeywordsIndexRoute
 }
 
 const AppProjectProjectIdKeywordsRouteRouteChildren: AppProjectProjectIdKeywordsRouteRouteChildren =
   {
+    AppProjectProjectIdKeywordsResearchRouteRoute:
+      AppProjectProjectIdKeywordsResearchRouteRouteWithChildren,
     AppProjectProjectIdKeywordsIndexRoute:
       AppProjectProjectIdKeywordsIndexRoute,
   }
