@@ -3,12 +3,8 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext } from "@tanstack/react-router";
-import { ConvexAuthProvider } from "@convex-dev/auth/react";
-import { ConvexReactClient } from "convex/react";
 import Header from "../components/Header";
 import appCss from "../styles.css?url";
-
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
@@ -44,10 +40,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ConvexAuthProvider client={convex}>
-					<Header />
-					{children}
-				</ConvexAuthProvider>
+				<Header />
+				{children}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",

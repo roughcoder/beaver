@@ -1,10 +1,13 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useAuthActions } from '@convex-dev/auth/react'
+import { useConvexAuth } from 'convex/react'
 
 import { useState } from 'react'
 import {
   ChevronDown,
   ChevronRight,
   Home,
+  LogOut,
   Menu,
   Network,
   SquareFunction,
@@ -17,26 +20,72 @@ export default function Header() {
   const [groupedExpanded, setGroupedExpanded] = useState<
     Record<string, boolean>
   >({})
+  const { signOut } = useAuthActions()
+  const { isLoading, isAuthenticated } = useConvexAuth()
+  const navigate = useNavigate()
+
+  const handleSignOut = async () => {
+    await signOut()
+    navigate({ to: '/' })
+  }
 
   return (
     <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
+      <header className="p-4 flex items-center justify-between bg-gray-800 text-white shadow-lg">
+        <div className="flex items-center">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
+          <h1 className="ml-4 text-xl font-semibold">
+            <Link to="/">
+              <img
+                src="/tanstack-word-logo-white.svg"
+                alt="TanStack Logo"
+                className="h-10"
+              />
+            </Link>
+          </h1>
+        </div>
+        <div className="flex items-center gap-2">
+          {!isLoading && isAuthenticated && (
+            <>
+              <Link
+                to="/app"
+                className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                App
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                aria-label="Sign out"
+              >
+                <LogOut size={18} />
+                <span>Sign Out</span>
+              </button>
+            </>
+          )}
+          {!isLoading && !isAuthenticated && (
+            <>
+              <Link
+                to="/sign-in"
+                className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/sign-up"
+                className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
       </header>
 
       <aside
