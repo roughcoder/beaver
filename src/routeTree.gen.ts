@@ -22,11 +22,12 @@ import { Route as AppProjectsIndexRouteImport } from './routes/_app/projects/ind
 import { Route as AppProjectsNewRouteImport } from './routes/_app/projects/new'
 import { Route as AppProjectProjectIdRouteRouteImport } from './routes/_app/project/$projectId/route'
 import { Route as AppProjectProjectIdIndexRouteImport } from './routes/_app/project/$projectId/index'
-import { Route as AppProjectProjectIdKeywordsRouteImport } from './routes/_app/project/$projectId/keywords'
 import { Route as AppProjectProjectIdContentRouteImport } from './routes/_app/project/$projectId/content'
 import { Route as AppProjectProjectIdAssistantRouteImport } from './routes/_app/project/$projectId/assistant'
 import { Route as AppProjectProjectIdSettingsRouteRouteImport } from './routes/_app/project/$projectId/settings/route'
+import { Route as AppProjectProjectIdKeywordsRouteRouteImport } from './routes/_app/project/$projectId/keywords/route'
 import { Route as AppProjectProjectIdSettingsIndexRouteImport } from './routes/_app/project/$projectId/settings/index'
+import { Route as AppProjectProjectIdKeywordsIndexRouteImport } from './routes/_app/project/$projectId/keywords/index'
 import { Route as AppProjectProjectIdSettingsTeamRouteImport } from './routes/_app/project/$projectId/settings/team'
 import { Route as AppProjectProjectIdSettingsDangerZoneRouteImport } from './routes/_app/project/$projectId/settings/danger-zone'
 import { Route as AppProjectProjectIdSettingsApiKeysRouteImport } from './routes/_app/project/$projectId/settings/api-keys'
@@ -96,12 +97,6 @@ const AppProjectProjectIdIndexRoute =
     path: '/',
     getParentRoute: () => AppProjectProjectIdRouteRoute,
   } as any)
-const AppProjectProjectIdKeywordsRoute =
-  AppProjectProjectIdKeywordsRouteImport.update({
-    id: '/keywords',
-    path: '/keywords',
-    getParentRoute: () => AppProjectProjectIdRouteRoute,
-  } as any)
 const AppProjectProjectIdContentRoute =
   AppProjectProjectIdContentRouteImport.update({
     id: '/content',
@@ -120,11 +115,23 @@ const AppProjectProjectIdSettingsRouteRoute =
     path: '/settings',
     getParentRoute: () => AppProjectProjectIdRouteRoute,
   } as any)
+const AppProjectProjectIdKeywordsRouteRoute =
+  AppProjectProjectIdKeywordsRouteRouteImport.update({
+    id: '/keywords',
+    path: '/keywords',
+    getParentRoute: () => AppProjectProjectIdRouteRoute,
+  } as any)
 const AppProjectProjectIdSettingsIndexRoute =
   AppProjectProjectIdSettingsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppProjectProjectIdSettingsRouteRoute,
+  } as any)
+const AppProjectProjectIdKeywordsIndexRoute =
+  AppProjectProjectIdKeywordsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppProjectProjectIdKeywordsRouteRoute,
   } as any)
 const AppProjectProjectIdSettingsTeamRoute =
   AppProjectProjectIdSettingsTeamRouteImport.update({
@@ -156,14 +163,15 @@ export interface FileRoutesByFullPath {
   '/project/$projectId': typeof AppProjectProjectIdRouteRouteWithChildren
   '/projects/new': typeof AppProjectsNewRoute
   '/projects/': typeof AppProjectsIndexRoute
+  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRouteRouteWithChildren
   '/project/$projectId/settings': typeof AppProjectProjectIdSettingsRouteRouteWithChildren
   '/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
   '/project/$projectId/content': typeof AppProjectProjectIdContentRoute
-  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
   '/project/$projectId/': typeof AppProjectProjectIdIndexRoute
   '/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
   '/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
   '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/project/$projectId/keywords/': typeof AppProjectProjectIdKeywordsIndexRoute
   '/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -177,11 +185,11 @@ export interface FileRoutesByTo {
   '/projects': typeof AppProjectsIndexRoute
   '/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
   '/project/$projectId/content': typeof AppProjectProjectIdContentRoute
-  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
   '/project/$projectId': typeof AppProjectProjectIdIndexRoute
   '/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
   '/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
   '/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsIndexRoute
   '/project/$projectId/settings': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRoutesById {
@@ -198,14 +206,15 @@ export interface FileRoutesById {
   '/_app/project/$projectId': typeof AppProjectProjectIdRouteRouteWithChildren
   '/_app/projects/new': typeof AppProjectsNewRoute
   '/_app/projects/': typeof AppProjectsIndexRoute
+  '/_app/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRouteRouteWithChildren
   '/_app/project/$projectId/settings': typeof AppProjectProjectIdSettingsRouteRouteWithChildren
   '/_app/project/$projectId/assistant': typeof AppProjectProjectIdAssistantRoute
   '/_app/project/$projectId/content': typeof AppProjectProjectIdContentRoute
-  '/_app/project/$projectId/keywords': typeof AppProjectProjectIdKeywordsRoute
   '/_app/project/$projectId/': typeof AppProjectProjectIdIndexRoute
   '/_app/project/$projectId/settings/api-keys': typeof AppProjectProjectIdSettingsApiKeysRoute
   '/_app/project/$projectId/settings/danger-zone': typeof AppProjectProjectIdSettingsDangerZoneRoute
   '/_app/project/$projectId/settings/team': typeof AppProjectProjectIdSettingsTeamRoute
+  '/_app/project/$projectId/keywords/': typeof AppProjectProjectIdKeywordsIndexRoute
   '/_app/project/$projectId/settings/': typeof AppProjectProjectIdSettingsIndexRoute
 }
 export interface FileRouteTypes {
@@ -221,14 +230,15 @@ export interface FileRouteTypes {
     | '/project/$projectId'
     | '/projects/new'
     | '/projects/'
+    | '/project/$projectId/keywords'
     | '/project/$projectId/settings'
     | '/project/$projectId/assistant'
     | '/project/$projectId/content'
-    | '/project/$projectId/keywords'
     | '/project/$projectId/'
     | '/project/$projectId/settings/api-keys'
     | '/project/$projectId/settings/danger-zone'
     | '/project/$projectId/settings/team'
+    | '/project/$projectId/keywords/'
     | '/project/$projectId/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -242,11 +252,11 @@ export interface FileRouteTypes {
     | '/projects'
     | '/project/$projectId/assistant'
     | '/project/$projectId/content'
-    | '/project/$projectId/keywords'
     | '/project/$projectId'
     | '/project/$projectId/settings/api-keys'
     | '/project/$projectId/settings/danger-zone'
     | '/project/$projectId/settings/team'
+    | '/project/$projectId/keywords'
     | '/project/$projectId/settings'
   id:
     | '__root__'
@@ -262,14 +272,15 @@ export interface FileRouteTypes {
     | '/_app/project/$projectId'
     | '/_app/projects/new'
     | '/_app/projects/'
+    | '/_app/project/$projectId/keywords'
     | '/_app/project/$projectId/settings'
     | '/_app/project/$projectId/assistant'
     | '/_app/project/$projectId/content'
-    | '/_app/project/$projectId/keywords'
     | '/_app/project/$projectId/'
     | '/_app/project/$projectId/settings/api-keys'
     | '/_app/project/$projectId/settings/danger-zone'
     | '/_app/project/$projectId/settings/team'
+    | '/_app/project/$projectId/keywords/'
     | '/_app/project/$projectId/settings/'
   fileRoutesById: FileRoutesById
 }
@@ -371,13 +382,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProjectProjectIdIndexRouteImport
       parentRoute: typeof AppProjectProjectIdRouteRoute
     }
-    '/_app/project/$projectId/keywords': {
-      id: '/_app/project/$projectId/keywords'
-      path: '/keywords'
-      fullPath: '/project/$projectId/keywords'
-      preLoaderRoute: typeof AppProjectProjectIdKeywordsRouteImport
-      parentRoute: typeof AppProjectProjectIdRouteRoute
-    }
     '/_app/project/$projectId/content': {
       id: '/_app/project/$projectId/content'
       path: '/content'
@@ -399,12 +403,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProjectProjectIdSettingsRouteRouteImport
       parentRoute: typeof AppProjectProjectIdRouteRoute
     }
+    '/_app/project/$projectId/keywords': {
+      id: '/_app/project/$projectId/keywords'
+      path: '/keywords'
+      fullPath: '/project/$projectId/keywords'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsRouteRouteImport
+      parentRoute: typeof AppProjectProjectIdRouteRoute
+    }
     '/_app/project/$projectId/settings/': {
       id: '/_app/project/$projectId/settings/'
       path: '/'
       fullPath: '/project/$projectId/settings/'
       preLoaderRoute: typeof AppProjectProjectIdSettingsIndexRouteImport
       parentRoute: typeof AppProjectProjectIdSettingsRouteRoute
+    }
+    '/_app/project/$projectId/keywords/': {
+      id: '/_app/project/$projectId/keywords/'
+      path: '/'
+      fullPath: '/project/$projectId/keywords/'
+      preLoaderRoute: typeof AppProjectProjectIdKeywordsIndexRouteImport
+      parentRoute: typeof AppProjectProjectIdKeywordsRouteRoute
     }
     '/_app/project/$projectId/settings/team': {
       id: '/_app/project/$projectId/settings/team'
@@ -430,6 +448,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppProjectProjectIdKeywordsRouteRouteChildren {
+  AppProjectProjectIdKeywordsIndexRoute: typeof AppProjectProjectIdKeywordsIndexRoute
+}
+
+const AppProjectProjectIdKeywordsRouteRouteChildren: AppProjectProjectIdKeywordsRouteRouteChildren =
+  {
+    AppProjectProjectIdKeywordsIndexRoute:
+      AppProjectProjectIdKeywordsIndexRoute,
+  }
+
+const AppProjectProjectIdKeywordsRouteRouteWithChildren =
+  AppProjectProjectIdKeywordsRouteRoute._addFileChildren(
+    AppProjectProjectIdKeywordsRouteRouteChildren,
+  )
+
 interface AppProjectProjectIdSettingsRouteRouteChildren {
   AppProjectProjectIdSettingsApiKeysRoute: typeof AppProjectProjectIdSettingsApiKeysRoute
   AppProjectProjectIdSettingsDangerZoneRoute: typeof AppProjectProjectIdSettingsDangerZoneRoute
@@ -454,20 +487,21 @@ const AppProjectProjectIdSettingsRouteRouteWithChildren =
   )
 
 interface AppProjectProjectIdRouteRouteChildren {
+  AppProjectProjectIdKeywordsRouteRoute: typeof AppProjectProjectIdKeywordsRouteRouteWithChildren
   AppProjectProjectIdSettingsRouteRoute: typeof AppProjectProjectIdSettingsRouteRouteWithChildren
   AppProjectProjectIdAssistantRoute: typeof AppProjectProjectIdAssistantRoute
   AppProjectProjectIdContentRoute: typeof AppProjectProjectIdContentRoute
-  AppProjectProjectIdKeywordsRoute: typeof AppProjectProjectIdKeywordsRoute
   AppProjectProjectIdIndexRoute: typeof AppProjectProjectIdIndexRoute
 }
 
 const AppProjectProjectIdRouteRouteChildren: AppProjectProjectIdRouteRouteChildren =
   {
+    AppProjectProjectIdKeywordsRouteRoute:
+      AppProjectProjectIdKeywordsRouteRouteWithChildren,
     AppProjectProjectIdSettingsRouteRoute:
       AppProjectProjectIdSettingsRouteRouteWithChildren,
     AppProjectProjectIdAssistantRoute: AppProjectProjectIdAssistantRoute,
     AppProjectProjectIdContentRoute: AppProjectProjectIdContentRoute,
-    AppProjectProjectIdKeywordsRoute: AppProjectProjectIdKeywordsRoute,
     AppProjectProjectIdIndexRoute: AppProjectProjectIdIndexRoute,
   }
 
