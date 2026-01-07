@@ -15,15 +15,15 @@ export function SubmitButton({
 		<form.Subscribe
 			selector={(formState) => [formState.canSubmit, formState.isSubmitting]}
 		>
-			{([canSubmit, isSubmitting, formIsSubmitting]) => (
+			{([canSubmit, isSubmitting]) => (
 				<Button
 					type="submit"
 					disabled={
-						disabledProp || !canSubmit || isSubmitting || formIsSubmitting
+						disabledProp || !canSubmit || isSubmitting
 					}
 					className="w-full"
 				>
-					{isSubmitting || formIsSubmitting ? (loadingLabel ?? label) : label}
+					{isSubmitting ? (loadingLabel ?? label) : label}
 				</Button>
 			)}
 		</form.Subscribe>
