@@ -7,11 +7,13 @@ import { FieldGroup } from "@/components/ui/field";
 interface SignUpCredentialsFormProps {
   onVerificationRequired: (email: string) => void;
   redirectTo?: string;
+  onSignupsDisabled: () => void;
 }
 
 export function SignUpCredentialsForm({
   onVerificationRequired,
   redirectTo,
+  onSignupsDisabled,
 }: SignUpCredentialsFormProps) {
   const { signIn } = useAuthActions();
   const navigate = useNavigate();
@@ -24,14 +26,26 @@ export function SignUpCredentialsForm({
       formData.append("email", value.email);
       formData.append("password", value.password);
 
-      const result = await signIn("password", formData);
+      try {
+        const result = await signIn("password", formData);
 
-      if (result.signingIn) {
-        navigate({
-          to: redirectTo || "/",
-        });
-      } else {
-        onVerificationRequired(value.email);
+        if (result.signingIn) {
+          navigate({
+            to: redirectTo || "/",
+          });
+        } else {
+          onVerificationRequired(value.email);
+        }
+      } catch (error) {
+        if (
+          error instanceof Error &&
+          error.message.includes("SIGNUPS_DISABLED")
+        ) {
+          onSignupsDisabled();
+          return;
+        }
+
+        throw error;
       }
     },
   });
@@ -85,4 +99,3 @@ export function SignUpCredentialsForm({
     </form>
   );
 }
-
