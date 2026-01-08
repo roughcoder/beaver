@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
+import { LANGUAGES, LOCATIONS } from "@/lib/locations";
 
 export function ProjectForm({
 	initialValues,
@@ -67,12 +68,11 @@ export function ProjectForm({
 							<form.AppField name="default_region">
 								{(field) => (
 									<field.SelectField
-										label="Default region"
-										options={[
-											{ label: "US East (N. Virginia)", value: "us-east-1" },
-											{ label: "US West (Oregon)", value: "us-west-2" },
-											{ label: "EU (Ireland)", value: "eu-west-1" },
-										]}
+										label="Location"
+										options={LOCATIONS.map((loc) => ({
+											label: loc.name,
+											value: loc.code.toString(),
+										}))}
 									/>
 								)}
 							</form.AppField>
@@ -80,12 +80,11 @@ export function ProjectForm({
 							<form.AppField name="default_language">
 								{(field) => (
 									<field.SelectField
-										label="Default language"
-										options={[
-											{ label: "English", value: "en" },
-											{ label: "Spanish", value: "es" },
-											{ label: "French", value: "fr" },
-										]}
+										label="Language"
+										options={LANGUAGES.map((lang) => ({
+											label: lang.name,
+											value: lang.code,
+										}))}
 									/>
 								)}
 							</form.AppField>

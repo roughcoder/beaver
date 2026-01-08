@@ -6,9 +6,7 @@ export const Route = createFileRoute("/_app/project/$projectId/keywords/research
 
 function ResearchLayout() {
   return (
-    <div className="flex flex-col">
       <Outlet />
-    </div>
   );
 }
 

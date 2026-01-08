@@ -143,6 +143,7 @@ const schema = defineSchema({
   })
     .index("by_keyword_context_source", ["keywordId", "contextId", "source"])
     .index("by_project_time", ["projectId", "fetchedAt"])
+    .index("by_project_keyword_context_time", ["projectId", "keywordId", "contextId", "fetchedAt"])
     .index("by_staleAt", ["staleAt"]),
 
   keywordOrigins: defineTable({
@@ -177,7 +178,7 @@ const schema = defineSchema({
     rawJson: v.any(),
   })
     .index("by_keyword_context_time", ["keywordId", "contextId", "fetchedAt"])
-    .index("by_project_time", ["projectId", "fetchedAt"])
+    .index("by_project_time", ["projectId", "keywordId", "contextId", "fetchedAt"])
     .index("by_apiCall", ["apiCallId"])
     .index("by_staleAt", ["staleAt"]),
 
@@ -313,6 +314,7 @@ const schema = defineSchema({
     stats: v.optional(v.any()), // diagnostics
   })
     .index("by_keyword_context_time", ["keywordId", "contextId", "computedAt"])
+    .index("by_project_keyword_context_time", ["projectId", "keywordId", "contextId", "computedAt"])
     .index("by_serpSnapshot", ["serpSnapshotId"])
     .index("by_staleAt", ["staleAt"]),
 

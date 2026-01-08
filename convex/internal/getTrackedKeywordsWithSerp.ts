@@ -22,7 +22,17 @@ export const getTrackedKeywordsWithSerp = internalQuery({
     // Get all tracked keywords and filter in memory
     // Note: We could add a better index later if needed
     const all = await ctx.db.query("trackedKeywords").collect();
-    return all.filter((t) => t.trackSerpDaily === true);
+    return all
+      .filter((t) => t.trackSerpDaily === true)
+      .map((t) => ({
+        _id: t._id,
+        userId: t.userId,
+        projectId: t.projectId,
+        keywordId: t.keywordId,
+        contextId: t.contextId,
+        trackSerpDaily: t.trackSerpDaily,
+        fetchBacklinks: t.fetchBacklinks,
+      }));
   },
 });
 

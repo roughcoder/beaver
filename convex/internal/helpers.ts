@@ -18,7 +18,14 @@ export const getKeyword = internalQuery({
     v.null()
   ),
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.keywordId);
+    const keyword = await ctx.db.get(args.keywordId);
+    if (!keyword) return null;
+    return {
+      _id: keyword._id,
+      text: keyword.text,
+      norm: keyword.norm,
+      createdAt: keyword.createdAt,
+    };
   },
 });
 
@@ -36,7 +43,16 @@ export const getKeywordContext = internalQuery({
     v.null()
   ),
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.contextId);
+    const context = await ctx.db.get(args.contextId);
+    if (!context) return null;
+    return {
+      _id: context._id,
+      seType: context.seType,
+      locationCode: context.locationCode,
+      languageCode: context.languageCode,
+      device: context.device,
+      createdAt: context.createdAt,
+    };
   },
 });
 
@@ -54,13 +70,19 @@ export const getLatestSerpSnapshot = internalQuery({
     v.null()
   ),
   handler: async (ctx, args) => {
-    return await ctx.db
+    const snapshot = await ctx.db
       .query("serpSnapshots")
       .withIndex("by_keyword_context_time", (q) =>
         q.eq("keywordId", args.keywordId).eq("contextId", args.contextId)
       )
       .order("desc")
       .first();
+    if (!snapshot) return null;
+    return {
+      _id: snapshot._id,
+      staleAt: snapshot.staleAt,
+      topOrganicUrlIds: snapshot.topOrganicUrlIds,
+    };
   },
 });
 
@@ -75,11 +97,13 @@ export const getLatestBacklinkSnapshot = internalQuery({
   ),
   handler: async (ctx, args) => {
     if (!args.projectId) return null;
-    return await ctx.db
+    const snapshot = await ctx.db
       .query("backlinkSnapshots")
       .withIndex("by_project_time", (q) => q.eq("projectId", args.projectId))
       .order("desc")
       .first();
+    if (!snapshot) return null;
+    return { _id: snapshot._id, staleAt: snapshot.staleAt };
   },
 });
 
@@ -95,11 +119,23 @@ export const getUrlsByIds = internalQuery({
     })
   ),
   handler: async (ctx, args) => {
-    const urls = [];
+    const urls: Array<{
+      _id: Id<"urls">;
+      url: string;
+      urlNorm: string;
+      domainId: Id<"domains">;
+      createdAt: number;
+    }> = [];
     for (const urlId of args.urlIds) {
       const url = await ctx.db.get(urlId);
       if (url) {
-        urls.push(url);
+        urls.push({
+          _id: url._id,
+          url: url.url,
+          urlNorm: url.urlNorm,
+          domainId: url.domainId,
+          createdAt: url.createdAt,
+        });
       }
     }
     return urls;
@@ -116,10 +152,12 @@ export const getLatestDifficulty = internalQuery({
     v.null()
   ),
   handler: async (ctx, args) => {
-    return await ctx.db
+    const difficulty = await ctx.db
       .query("keywordDifficultyComputed")
       .withIndex("by_serpSnapshot", (q) => q.eq("serpSnapshotId", args.serpSnapshotId))
       .first();
+    if (!difficulty) return null;
+    return { _id: difficulty._id, staleAt: difficulty.staleAt };
   },
 });
 

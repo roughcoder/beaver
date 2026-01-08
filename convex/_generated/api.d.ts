@@ -21,10 +21,12 @@ import type * as internal_helpers from "../internal/helpers.js";
 import type * as internal_refreshTrackedKeywords from "../internal/refreshTrackedKeywords.js";
 import type * as internal_writeModels from "../internal/writeModels.js";
 import type * as keywordContexts from "../keywordContexts.js";
+import type * as keywordDetails from "../keywordDetails.js";
 import type * as keywordResearch from "../keywordResearch.js";
 import type * as lib_dataforseoClient from "../lib/dataforseoClient.js";
 import type * as lib_requestHash from "../lib/requestHash.js";
 import type * as projects from "../projects.js";
+import type * as serp from "../serp.js";
 import type * as tasks from "../tasks.js";
 import type * as trackedKeywords from "../trackedKeywords.js";
 
@@ -48,10 +50,12 @@ declare const fullApi: ApiFromModules<{
   "internal/refreshTrackedKeywords": typeof internal_refreshTrackedKeywords;
   "internal/writeModels": typeof internal_writeModels;
   keywordContexts: typeof keywordContexts;
+  keywordDetails: typeof keywordDetails;
   keywordResearch: typeof keywordResearch;
   "lib/dataforseoClient": typeof lib_dataforseoClient;
   "lib/requestHash": typeof lib_requestHash;
   projects: typeof projects;
+  serp: typeof serp;
   tasks: typeof tasks;
   trackedKeywords: typeof trackedKeywords;
 }>;

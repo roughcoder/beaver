@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
+import { useId, useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { api, type Id } from "@/convex";
 import { useQuery, useMutation } from "convex/react";
 import { useEffect } from "react";
@@ -15,8 +15,6 @@ import { z } from "zod";
 
 const searchSchema = z.object({
   keywordIds: z.array(z.string()).optional(),
-  locationCode: z.string().optional(),
-  languageCode: z.string().optional(),
   device: z.string().optional(),
 });
 
@@ -42,22 +40,35 @@ function ResearchStep3() {
   const [fetchBacklinks, setFetchBacklinks] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [contextId, setContextId] = useState<Id<"keywordContexts"> | null>(null);
+  const [contextError, setContextError] = useState<string | null>(null);
+
+  const refreshMetricsId = useId();
+  const trackSerpId = useId();
+  const fetchBacklinksId = useId();
 
   const keywordIds = search.keywordIds
-    ? (search.keywordIds.map((id) => id as Id<"keywords">) as Id<"keywords">[])
+    ? (Array.from(new Set(search.keywordIds)).map((id) => id as Id<"keywords">) as Id<"keywords">[])
     : [];
 
   // Get or create context on mount
   useEffect(() => {
-    if (search.locationCode && search.languageCode) {
+    if (project?.default_region && project?.default_language) {
+      const parsedLocationCode = Number(project.default_region);
+      if (!Number.isFinite(parsedLocationCode)) {
+        const msg = "Project Location is invalid. Please update it in project settings.";
+        console.error("Invalid project.default_region:", project.default_region);
+        setContextError(msg);
+        return;
+      }
+      setContextError(null);
       getOrCreateContext({
         seType: "google",
-        locationCode: Number(search.locationCode),
-        languageCode: search.languageCode,
+        locationCode: parsedLocationCode,
+        languageCode: project.default_language,
         device: search.device,
       }).then(setContextId).catch(console.error);
     }
-  }, [search.locationCode, search.languageCode, search.device, getOrCreateContext]);
+  }, [project, search.device, getOrCreateContext]);
 
   const handleAddToProject = async () => {
     if (!contextId) {
@@ -88,7 +99,44 @@ function ResearchStep3() {
     }
   };
 
-  if (project === undefined || contextId === null) {
+  if (project === undefined) {
+    return <div className="text-muted-foreground">Loading...</div>;
+  }
+
+  if (project === null) {
+    return (
+      <div>
+        <h2 className="text-2xl font-semibold">Add to Project</h2>
+        <p className="text-muted-foreground">
+          This project doesn’t exist or you don’t have access.
+        </p>
+      </div>
+    );
+  }
+
+  if (contextError) {
+    return (
+      <div className="flex flex-col gap-3 max-w-2xl mx-auto">
+        <h2 className="text-2xl font-semibold">Add to Project</h2>
+        <p className="text-muted-foreground">{contextError}</p>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" asChild>
+            <Link to="/project/$projectId/keywords/research" params={{ projectId: id }}>
+              <ChevronLeft className="h-4 w-4 mr-2" />
+              Back
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link to="/project/$projectId/settings" params={{ projectId: id }}>
+              Open settings
+            </Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (contextId === null) {
     return <div className="text-muted-foreground">Loading...</div>;
   }
 
@@ -113,37 +161,37 @@ function ResearchStep3() {
         <CardContent className="space-y-4">
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="refreshMetrics"
+              id={refreshMetricsId}
               checked={refreshKeywordMetrics}
               onCheckedChange={(checked) =>
                 setRefreshKeywordMetrics(checked === true)
               }
             />
-            <Label htmlFor="refreshMetrics" className="cursor-pointer">
+            <Label htmlFor={refreshMetricsId} className="cursor-pointer">
               Refresh keyword metrics every 7 days (default ON)
             </Label>
           </div>
 
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="trackSerp"
+              id={trackSerpId}
               checked={trackSerpDaily}
               onCheckedChange={(checked) => setTrackSerpDaily(checked === true)}
             />
-            <Label htmlFor="trackSerp" className="cursor-pointer">
+            <Label htmlFor={trackSerpId} className="cursor-pointer">
               Track SERP daily (24h) - default OFF
             </Label>
           </div>
 
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="fetchBacklinks"
+              id={fetchBacklinksId}
               checked={fetchBacklinks}
               onCheckedChange={(checked) => setFetchBacklinks(checked === true)}
               disabled={!trackSerpDaily}
             />
             <Label
-              htmlFor="fetchBacklinks"
+              htmlFor={fetchBacklinksId}
               className={`cursor-pointer ${!trackSerpDaily ? "text-muted-foreground" : ""}`}
             >
               Fetch competitor backlink summaries (7d) - only if SERP tracking enabled

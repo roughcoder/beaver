@@ -1,5 +1,6 @@
 import { formOptions } from "@tanstack/react-form";
 import z from "zod";
+import { LANGUAGES, LOCATIONS } from "@/lib/locations";
 
 export type ProjectFormValues = {
   name: string;
@@ -10,13 +11,19 @@ export type ProjectFormValues = {
 };
 
 export function projectFormOpts(overrides?: Partial<ProjectFormValues>) {
+  const defaultRegionCode = (LOCATIONS[1]?.code ??
+    LOCATIONS[0]?.code ??
+    2826 /* UK */).toString();
+  const defaultLanguageCode = LANGUAGES[0]?.code ?? "en";
+
   return formOptions({
     defaultValues: {
       name: "",
       description: "",
       url: "",
-      default_region: "us-east-1",
-      default_language: "en",
+      // Store DataForSEO location codes as strings (SelectField values are strings).
+      default_region: defaultRegionCode,
+      default_language: defaultLanguageCode,
       ...overrides,
     } satisfies ProjectFormValues,
     validators: {
@@ -27,8 +34,8 @@ export function projectFormOpts(overrides?: Partial<ProjectFormValues>) {
           (value) => value.length === 0 || z.string().url().safeParse(value).success,
           "Please enter a valid URL",
         ),
-        default_region: z.string().min(1, "Default region is required"),
-        default_language: z.string().min(1, "Default language is required"),
+        default_region: z.string().min(1, "Location is required"),
+        default_language: z.string().min(1, "Language is required"),
       }),
     },
   });
