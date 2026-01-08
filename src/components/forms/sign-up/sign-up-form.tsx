@@ -11,6 +11,23 @@ interface SignUpFormProps {
 
 export function SignUpForm({ redirectTo }: SignUpFormProps) {
   const [step, setStep] = useState<"signUp" | { email: string }>("signUp");
+  const [signupsDisabled, setSignupsDisabled] = useState(false);
+
+  if (signupsDisabled) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center px-6">
+        <Card className="max-w-lg">
+          <CardContent className="flex flex-col gap-3 p-8 text-center">
+            <h1 className="text-2xl font-bold">We&apos;re in preview</h1>
+            <p className="text-muted-foreground text-sm">
+              Sign ups are temporarily disabled while we get everything ready.
+              Please check back soon.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col gap-6")}>
@@ -21,6 +38,7 @@ export function SignUpForm({ redirectTo }: SignUpFormProps) {
               <SignUpCredentialsForm
                 onVerificationRequired={(email) => setStep({ email })}
                 redirectTo={redirectTo}
+                onSignupsDisabled={() => setSignupsDisabled(true)}
               />
             ) : (
               <SignUpVerifyCodeForm

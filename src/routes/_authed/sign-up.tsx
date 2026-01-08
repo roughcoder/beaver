@@ -10,5 +10,6 @@ export const Route = createFileRoute("/_authed/sign-up")({
 
 function SignUp() {
   const { redirectTo } = Route.useSearch();
+
   return <SignUpForm redirectTo={redirectTo} />;
 }
